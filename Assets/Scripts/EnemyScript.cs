@@ -8,8 +8,6 @@ public class EnemyScript : MonoBehaviour
 {
     public float MaxHealth;
     public int Money;
-    public float SpawnedCoinMean;
-    public float SpawnedCoinStd;
 
     private Transform canvas;
     private Slider healthBar;
@@ -38,7 +36,7 @@ public class EnemyScript : MonoBehaviour
 
         if (collision.CompareTag("finish"))
         {
-            GameManager.Instance.EnemyEscaped(gameObject);
+            //GameManager.Instance.EnemyEscaped(gameObject);
         }
 
         else if ((collision.CompareTag("bullet") && !CompareTag("plane")) || (collision.CompareTag("rocket") && !CompareTag("soldier")))
@@ -60,7 +58,7 @@ public class EnemyScript : MonoBehaviour
                     explosion.SetActive(true);
                 }
 
-                GameManager.Instance.EnemyKilled(gameObject);
+                //GameManager.Instance.EnemyKilled(gameObject);
                 Pool.Instance.DeactivateObject(gameObject);
                 EnemyManagerScript.Instance.DeleteEnemy(gameObject);
             }
