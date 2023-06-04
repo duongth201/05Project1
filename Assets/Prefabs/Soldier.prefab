@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 7679133428620438670}
   - component: {fileID: 8501789953232128905}
   - component: {fileID: -3516142943867325347}
+  - component: {fileID: 2174809057520269430}
+  - component: {fileID: -1542891128768876777}
+  - component: {fileID: -3699097525348285303}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Untagged
@@ -111,3 +114,43 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 20, y: 32}
   m_EdgeRadius: 0
+--- !u!114 &2174809057520269430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7679133428620438669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd77565f06213f3419b318f0fd9ed2ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-1542891128768876777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7679133428620438669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0733ee200212bd743bf9e3541dcf4a3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 15
+  Money: 15
+--- !u!114 &-3699097525348285303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7679133428620438669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9ec39d3824cd6498cf225f9151123c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 0
+  Speed: 0
