@@ -23,5 +23,21 @@ public class PathFollower : MonoBehaviour
     private Vector2 v1, v2, v3;
     private float t;
 
+    // Method set path for follower
+    void OnEnable()
+    {
+        // type path
+        switch (Type)
+        {
+            // set value
+            case PathType.Ground: path = GameObject.Find("GroundPath").GetComponent<PathCreator>().path; break;
+            case PathType.Air: path = GameObject.Find("AirPath").GetComponent<PathCreator>().path; break;
+        }
 
+        // default index
+        segmentIndex = 0;
+        PositionOffset = Random.insideUnitCircle * Random.Range(-OffsetAmount, OffsetAmount);
+
+        RecomputeSegment();
+    }
 }
