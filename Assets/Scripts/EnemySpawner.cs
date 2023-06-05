@@ -29,6 +29,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (waveIndex >= Waves.Count) return;
 
+        //Start new wave of monster
         if (currentWave.RestTime < 0)
         {
             waveIndex += 1;
@@ -38,12 +39,14 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
+        //If all monster of current wave spawned, wait rest time
         if(currentWave.Amount <= 0)
         {
             currentWave.RestTime -= Time.deltaTime;
             return;
         }
 
+        //Spawn monster
         if(spawnTime < 0)
         {
             Spawn(currentWave.Enemy);
@@ -58,9 +61,11 @@ public class EnemySpawner : MonoBehaviour
 
     private void Spawn(GameObject prototype)
     {
+        //Get monster object by tag from Pool
         var spawnedEnemy = Pool.Instance.ActivateObject(prototype.tag);
         spawnedEnemy.SetActive(true);
 
+        //Register monster 
         EnemyManagerScript.Instance.RegisterEnemy(spawnedEnemy);
     }
 }
