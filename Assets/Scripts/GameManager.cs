@@ -40,9 +40,12 @@ public class GameManager : MonoBehaviour
 
     private int remainingEnemies;
 
+    private Dictionary<string, string[]> saveData;
+
     // Use this for initialization
     void Start ()
     {
+        FileManager.Instance.loadSaveData();
         money = InitialMoney;
 
         turretPrice = InitialTurretPrice;
