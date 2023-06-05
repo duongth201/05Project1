@@ -17,7 +17,7 @@ public class StartButtonScript : MonoBehaviour
     {
         LoadingScreen.SetActive(true);
         GameManager.Lives = GameManager.MaxLives;
-        SceneManager.LoadScene("Level_01");
+        SceneManager.LoadScene("Level_02");
     }
 
     public void SelectLevel()
