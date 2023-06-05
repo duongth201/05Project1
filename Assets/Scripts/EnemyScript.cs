@@ -1,4 +1,4 @@
-﻿
+﻿using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +8,9 @@ public class EnemyScript : MonoBehaviour
 {
     public float MaxHealth;
     public int Money;
+    public GameObject Coin;
+    public float SpawnedCoinMean;
+    public float SpawnedCoinStd;
 
     private Transform canvas;
     private Slider healthBar;
@@ -30,16 +33,33 @@ public class EnemyScript : MonoBehaviour
         canvas.localScale = Vector3.one * 0.5f;
     }
 
+    private void SpawnCoins()
+    {
+        var num = (int)(MathHelpers.NextGaussianDouble() * SpawnedCoinStd + SpawnedCoinMean + 0.5f);
+
+        for(int i = 0; i < num; i++)
+        {
+            var x = MathHelpers.NextGaussianDouble() * Mathf.Log(i + 1) * 4.0f;
+            var y = MathHelpers.NextGaussianDouble() * Mathf.Log(i + 1) * 4.0f;
+
+            var coin = Pool.Instance.ActivateObject(Coin.tag);
+            coin.transform.position = transform.position + new Vector3(x, y, 0);
+            coin.SetActive(true);
+        }
+
+        GameManager.Instance.AddMoney(Money);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!gameObject.activeSelf) return;
 
-        if (collision.CompareTag("finish"))
+        if(collision.CompareTag("finish"))
         {
-            //GameManager.Instance.EnemyEscaped(gameObject);
+            GameManager.Instance.EnemyEscaped(gameObject);
         }
 
-        else if ((collision.CompareTag("bullet") && !CompareTag("plane")) || (collision.CompareTag("rocket") && !CompareTag("soldier")))
+        else if((collision.CompareTag("bullet") && !CompareTag("plane")) || (collision.CompareTag("rocket") && !CompareTag("soldier")))
         {
             var flyingShot = collision.gameObject.GetComponent<FlyingShotScript>();
             var damage = flyingShot.Damage;
@@ -47,8 +67,8 @@ public class EnemyScript : MonoBehaviour
             healthBar.value = health;
             canvas.gameObject.SetActive(true);
             flyingShot.BlowUp();
-
-            if (health <= 0)
+            
+            if(health <= 0)
             {
                 if (CompareTag("plane") || CompareTag("tank"))
                 {
@@ -58,7 +78,8 @@ public class EnemyScript : MonoBehaviour
                     explosion.SetActive(true);
                 }
 
-                //GameManager.Instance.EnemyKilled(gameObject);
+                SpawnCoins();
+                GameManager.Instance.EnemyKilled(gameObject);
                 Pool.Instance.DeactivateObject(gameObject);
                 EnemyManagerScript.Instance.DeleteEnemy(gameObject);
             }
