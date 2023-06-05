@@ -36,3 +36,4 @@ sysinfo.txt
 *.apk
 *.unitypackage
 build_windows.zip
+*.log
