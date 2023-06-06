@@ -9,25 +9,9 @@ public class FileManager : MonoBehaviour
 {
     private string filePath;
 
-    private static FileManager instance;
     private static string DEMO_DATA = "1:0|2:0|3:0|";
-    public static FileManager Instance
+    void OnEnable()
     {
-        get { return instance; }
-    }
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
         string projectPath = AppDomain.CurrentDomain.BaseDirectory;
 
         filePath = Application.persistentDataPath + "/data.txt";
@@ -50,10 +34,13 @@ public class FileManager : MonoBehaviour
 
         foreach (string item in dataLine)
         {
-            string[] temp = item.Split(":");
-            saveData.Add(temp[0], temp[1]);
+            if (item.Length > 0 )
+            {
+                string[] temp = item.Split(":");
+                saveData.Add(temp[0], temp[1]);
 
-            Debug.Log(temp[0] + " " + temp[1]);
+                Debug.Log(temp[0] + " " + temp[1]);
+            }
         }
 
         return saveData;

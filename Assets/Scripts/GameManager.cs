@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     public const int MaxLives = 5;
     public int InitialMoney;
+    public GameObject hightMoneyTextFieldObject;
 
     public int Level;
     public GameObject VictoryText;
@@ -37,15 +39,15 @@ public class GameManager : MonoBehaviour
     private int money;
     private HealthDrawerScript healthDrawer;
     private MoneyDrawer moneyDrawer;
+    private FileManager fileManager;
 
     private int remainingEnemies;
 
-    private Dictionary<string, string[]> saveData;
+    private Dictionary<string, string> saveData;
 
     // Use this for initialization
     void Start ()
     {
-        FileManager.Instance.loadSaveData();
         money = InitialMoney;
 
         turretPrice = InitialTurretPrice;
@@ -53,10 +55,14 @@ public class GameManager : MonoBehaviour
 
         healthDrawer = GetComponent<HealthDrawerScript>();
         moneyDrawer = GetComponent<MoneyDrawer>();
+        fileManager = GetComponent<FileManager>();
 
         moneyDrawer.Draw(InitialMoney);
 
         remainingEnemies = GetComponent<EnemySpawner>().Waves.Sum(w => w.Amount);
+        saveData = fileManager.loadSaveData();
+
+        hightMoneyTextFieldObject.GetComponent<Text>().text = saveData[Level.ToString()];
     }
 
     public void EnemyEscaped(GameObject enemy)
@@ -128,6 +134,7 @@ public class GameManager : MonoBehaviour
 
     public void Victory()
     {
+        saveHighestMoneyToFile();
         VictoryText.SetActive(true);
         Invoke("NextLevel", 5.0f);
     }
@@ -153,5 +160,14 @@ public class GameManager : MonoBehaviour
     public void BackToMainMenu()
     {
         SceneManager.LoadScene("Menu_screen");
+    }
+
+    private void saveHighestMoneyToFile()
+    {
+        double saveMoney = double.Parse(saveData[Level.ToString()]);
+
+        saveData[Level.ToString()] = money > saveMoney ? money.ToString() : saveMoney.ToString();
+
+        fileManager.saveSaveData(saveData);
     }
 }
