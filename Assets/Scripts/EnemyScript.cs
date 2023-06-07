@@ -8,7 +8,6 @@ public class EnemyScript : MonoBehaviour
 {
     public float MaxHealth;
     public int Money;
-    public GameObject Coin;
 
     private Transform canvas;
     private Slider healthBar;
