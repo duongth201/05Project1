@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
         moneyDrawer = GetComponent<MoneyDrawer>();
 
         moneyDrawer.Draw(InitialMoney);
+        moneyDrawer.SetMoneyHight(Level.ToString());
 
         remainingEnemies = GetComponent<EnemySpawner>().Waves.Sum(w => w.Amount);
     }
