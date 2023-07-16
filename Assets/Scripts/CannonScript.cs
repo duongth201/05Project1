@@ -78,4 +78,16 @@ public class CannonScript : MonoBehaviour
         var angle = MathHelpers.Angle(direction, transform.up);
         transform.Rotate(0, 0, Mathf.Clamp(angle, -10, 10) * RotationSpeed * Time.deltaTime);
     }
+
+    void cannon()
+    {
+        enemyTags = new List<string> {  };
+
+        // Các dòng mã khác giữ nguyên
+        var enemy = EnemyManagerScript.Instance.GetEnemyInRange(transform.position, float.PositiveInfinity, enemyTags);
+        var angle = MathHelpers.Angle(enemy.transform.position - transform.position, transform.up);
+        transform.eulerAngles = new Vector3(0, 0, angle);
+
+        bulletPlaceholder = transform.Find("Rocket").gameObject;
+    }
 }
