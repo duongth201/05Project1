@@ -43,4 +43,16 @@ public class StartButtonScript : MonoBehaviour
         LoadingScreen.SetActive(true);
         SceneManager.LoadScene("Level_0" + Level);
     }
+
+    public void Guidance()
+    {
+        LoadingScreen.SetActive(true);
+        SceneManager.LoadScene("Guidance");
+    }
+
+    public void StartMenu()
+    {
+        LoadingScreen.SetActive(true);
+        SceneManager.LoadScene("Menu_screen");
+    }
 }
