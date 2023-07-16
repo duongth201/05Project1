@@ -61,4 +61,9 @@ public class StartButtonScript : MonoBehaviour
     {
         ScoreManager.Instance.BackNextLevelScore();
     }
+
+    public void ShowGuideLine()
+    {
+        SceneManager.LoadScene("Guidance");
+    }
 }
