@@ -126,6 +126,7 @@ public class GameManager : MonoBehaviour
     public void Victory()
     {
         VictoryText.SetActive(true);
+        ScoreManager.Instance.SaveHighScore("Level" + Level, money);
         Invoke("NextLevel", 5.0f);
     }
     

@@ -6,6 +6,8 @@ public class StartButtonScript : MonoBehaviour
     public GameObject LoadingScreen;
     public GameObject MainMenuScreen;
     public GameObject SelectLevelScreen;
+    public GameObject ViewScoreScreen;
+
     public int Level;
 
     private void Start()
@@ -26,11 +28,17 @@ public class StartButtonScript : MonoBehaviour
         GameManager.Lives = GameManager.MaxLives;
         SelectLevelScreen.SetActive(true);
     }
+    public void ViewScore()
+    {
+        MainMenuScreen.SetActive(false);
+        ViewScoreScreen.SetActive(true);
+    }
 
     public void BackToMainMenu()
     {
         SelectLevelScreen.SetActive(false);
         MainMenuScreen.SetActive(true);
+        ViewScoreScreen.SetActive(false);
     }
 
     public void Exit()
@@ -42,5 +50,15 @@ public class StartButtonScript : MonoBehaviour
     {
         LoadingScreen.SetActive(true);
         SceneManager.LoadScene("Level_0" + Level);
+    }
+
+    public void NextScoreLevel()
+    {
+        ScoreManager.Instance.NextLevelScore();
+    }
+
+    public void BackScoreLevel()
+    {
+        ScoreManager.Instance.BackNextLevelScore();
     }
 }
