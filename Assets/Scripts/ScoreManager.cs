@@ -35,6 +35,7 @@ public class ScoreManager : MonoBehaviour
 
         highScores = new Dictionary<string, List<int>>();
         filePath = Application.persistentDataPath + "/highscores.txt";
+        Debug.Log(filePath);
 
         LoadHighScores();
     }
@@ -104,7 +105,7 @@ public class ScoreManager : MonoBehaviour
             for (int i = 1; i <= 3; i++)
             {
                 string levelKey = "Level" + i.ToString();
-                highScores.Add(levelKey, new List<int>());
+                highScores.Add(levelKey, new List<int>() { 0, 0, 0});
 
                 SaveHighScores();
             }
