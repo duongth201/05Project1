@@ -7125,6 +7125,10 @@ MonoBehaviour:
     Enemy: {fileID: 1141339285231944, guid: 2b4be0333c134ad478dfc8f4bd8c7f23, type: 3}
     SpawnTime: 0.4
     RestTime: 5
+  - Amount: 10
+    Enemy: {fileID: 1141339285231944, guid: 2b4be0333c134ad478dfc8f4bd8c7f23, type: 3}
+    SpawnTime: 1
+    RestTime: 5
   - Amount: 1
     Enemy: {fileID: 1233710361444010, guid: a9f617fb7fe1e9742b1b293a2adbeed6, type: 3}
     SpawnTime: 1

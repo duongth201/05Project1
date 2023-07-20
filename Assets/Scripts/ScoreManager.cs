@@ -88,27 +88,33 @@ public class ScoreManager : MonoBehaviour
 
     private void LoadHighScores()
     {
-        if (File.Exists(filePath))
+       try
         {
-            string[] lines = File.ReadAllLines(filePath);
-
-            foreach (string line in lines)
+            if (File.Exists(filePath))
             {
-                string[] data = line.Split(':');
-                string levelKey = data[0];
-                List<int> scores = data[1].Split(',').Select(int.Parse).ToList();
-                highScores.Add(levelKey, scores);
+                string[] lines = File.ReadAllLines(filePath);
+
+                foreach (string line in lines)
+                {
+                    string[] data = line.Split(':');
+                    string levelKey = data[0];
+                    List<int> scores = data[1].Split(',').Select(int.Parse).ToList();
+                    highScores.Add(levelKey, scores);
+                }
             }
-        }
-        else
+            else
+            {
+                for (int i = 1; i <= 3; i++)
+                {
+                    string levelKey = "Level" + i.ToString();
+                    highScores.Add(levelKey, new List<int>() { 0, 0, 0 });
+
+                    SaveHighScores();
+                }
+            }
+        } catch (IOException ex)
         {
-            for (int i = 1; i <= 3; i++)
-            {
-                string levelKey = "Level" + i.ToString();
-                highScores.Add(levelKey, new List<int>() { 0, 0, 0});
-
-                SaveHighScores();
-            }
+            Debug.Log($"{Time.frameCount}. exception: {ex.Message}");
         }
     }
 
@@ -125,7 +131,13 @@ public class ScoreManager : MonoBehaviour
             lines.Add(line);
         }
 
-        File.WriteAllLines(filePath, lines.ToArray());
+        try
+        {
+            File.WriteAllLines(filePath, lines.ToArray());
+        } catch (IOException ex)
+        {
+            Debug.Log($"{Time.frameCount}. exception: {ex.Message}");
+        }
     }
 
     public void SaveHighScore(string levelName, int score)
